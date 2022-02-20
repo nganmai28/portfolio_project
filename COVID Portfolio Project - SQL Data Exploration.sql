@@ -1,14 +1,14 @@
-select *
-from PortfolioProject..CovidDeaths
-WHERE continent is not NULL
-order by 3,4
+SELECT *
+FROM PortfolioProject..CovidDeaths
+WHERE continent IS NOT NULL
+ORDER BY 3,4
 
 
 -- Select Data that we are going to be using
 
 SELECT location, date, total_cases, new_cases, total_deaths, population
 FROM PortfolioProject..CovidDeaths
-WHERE continent is not NULL
+WHERE continent IS NOT NULL
 ORDER BY 1,2
 
 -- Looking at Total Cases vs Total Deaths
@@ -16,7 +16,7 @@ ORDER BY 1,2
 SELECT location, date, total_cases, total_deaths, (total_deaths/total_cases)*100 AS DeathPercentage
 FROM PortfolioProject..CovidDeaths
 WHERE location = 'Vietnam'
-AND continent is not NULL
+AND continent IS NOT NULL
 ORDER BY 1,2
 
 -- Looking at Total Cases vs Population, shows what percentage of population got Covid
@@ -35,7 +35,7 @@ ORDER BY PercentPopulationInfected DESC
 -- Showing Countries with Highest Deadth Count per Population
 SELECT location, MAX(CAST(total_deaths AS int)) AS TotalDeathCount
 FROM PortfolioProject..CovidDeaths
-WHERE continent is not NULL
+WHERE continent IS NOT NULL
 GROUP BY location
 ORDER BY TotalDeathCount DESC
 
@@ -45,7 +45,7 @@ ORDER BY TotalDeathCount DESC
 
 SELECT continent, MAX(CAST(total_deaths AS int)) AS TotalDeathCount
 FROM PortfolioProject..CovidDeaths
-WHERE continent is not NULL
+WHERE continent IS NOT NULL
 GROUP BY continent
 ORDER BY TotalDeathCount DESC
 
@@ -54,7 +54,7 @@ ORDER BY TotalDeathCount DESC
 SELECT SUM(new_cases) AS total_cases,SUM(CAST(new_deaths AS int)) AS total_deaths
 ,SUM(CAST(new_deaths AS int))/SUM(new_cases) * 100 AS DeathPercentage
 FROM PortfolioProject..CovidDeaths
-WHERE continent is not NULL
+WHERE continent IS NOT NULL
 --GROUP BY date
 ORDER BY 1,2
 
@@ -66,7 +66,7 @@ FROM PortfolioProject..CovidDeaths AS dea
 JOIN PortfolioProject..CovidVaccinations AS vac 
 	ON dea.location=vac.location 
 	AND dea.date=vac.date
-WHERE dea.continent is not NULL
+WHERE dea.continent IS NOT NULL
 ORDER BY 2, 3
 
 
@@ -82,7 +82,7 @@ FROM PortfolioProject..CovidDeaths AS dea
 JOIN PortfolioProject..CovidVaccinations AS vac 
 	ON dea.location=vac.location 
 	AND dea.date=vac.date
-WHERE dea.continent is not NULL
+WHERE dea.continent IS NOT NULL
 --ORDER BY 2, 3
 )
 SELECT *, (RollingPeopleVaccinated/population) * 100
@@ -108,7 +108,7 @@ FROM PortfolioProject..CovidDeaths AS dea
 JOIN PortfolioProject..CovidVaccinations AS vac 
 	ON dea.location=vac.location 
 	AND dea.date=vac.date
-WHERE dea.continent is not NULL
+WHERE dea.continent IS NOT NULL
 --ORDER BY 2, 3
 
 SELECT *, (RollingPeopleVaccinated/Population)*100
@@ -123,7 +123,7 @@ FROM PortfolioProject..CovidDeaths AS dea
 JOIN PortfolioProject..CovidVaccinations AS vac 
 	ON dea.location=vac.location 
 	AND dea.date=vac.date
-WHERE dea.continent is not NULL
+WHERE dea.continent IS NOT NULL
 --ORDER BY 2, 3
 
 SELECT *
