@@ -91,7 +91,7 @@ FROM PopvsVac
 ---- Temp Table
 
 DROP Table if exists #PercentPopulationVaccinated
-Create Table #PercentPopulationVaccinated
+CREATE Table #PercentPopulationVaccinated
 (
 Continent nvarchar(255),
 Location nvarchar(255),
@@ -101,7 +101,7 @@ New_vaccinations numeric,
 RollingPeopleVaccinated numeric,
 )
 
-Insert into #PercentPopulationVaccinated
+INSERT INTO #PercentPopulationVaccinated
 SELECT dea.continent, dea.location, dea.date, dea.population, vac.new_vaccinations
 ,SUM(CONVERT(int,vac.new_vaccinations)) OVER (PARTITION BY dea.location ORDER BY dea.location,dea.date) AS RollingPeopleVaccinated
 FROM PortfolioProject..CovidDeaths AS dea
@@ -116,7 +116,7 @@ FROM #PercentPopulationVaccinated
 
 -- Creating view to store data for later visualization
 
-Create view PercentPopulationVaccinated AS
+CREATE view PercentPopulationVaccinated AS
 SELECT dea.continent, dea.location, dea.date, dea.population, vac.new_vaccinations
 ,SUM(CONVERT(int,vac.new_vaccinations)) OVER (PARTITION BY dea.location ORDER BY dea.location,dea.date) AS RollingPeopleVaccinated
 FROM PortfolioProject..CovidDeaths AS dea
